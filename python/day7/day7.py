@@ -46,24 +46,10 @@ def size_count(info, path='/'):
 size_count(directory_info)
 
 # Part 1
-output = 0
-for entry in size_info:
-    if not entry.startswith('/'):
-        continue
-    if size_info[entry] <= 100000:
-        output += size_info[entry]
-print(output)
+print(sum([size_info[entry] for entry in size_info if not entry.startswith('/') and size_info[entry] <= 100000]))
 
 # Part 2
 total_disk_space = 70000000
 needed_disk_space = 30000000
 to_free = needed_disk_space - (total_disk_space - size_info['/'])
-
-possible_min = total_disk_space
-for entry in size_info:
-    if not entry.startswith('/'):
-        continue
-    if size_info[entry] >= to_free:
-        if size_info[entry] < possible_min:
-            possible_min = size_info[entry]
-print(possible_min)
+print(min([size_info[entry] for entry in size_info if not entry.startswith('/') and size_info[entry] >= to_free]))
